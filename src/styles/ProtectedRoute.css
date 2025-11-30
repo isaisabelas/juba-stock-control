@@ -1,0 +1,22 @@
+/* ProtectedRoute Styles */
+.protected-route {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.protected-route h2 {
+  color: #e74c3c;
+  margin: 0 0 1rem 0;
+  font-size: 1.8rem;
+}
+
+.protected-route p {
+  color: #7f8c8d;
+  font-size: 1.05rem;
+  margin: 0;
+}
