@@ -1,1 +1,1 @@
-web: npm install && npm run build && node server/index.js
+web: npm install --legacy-peer-deps && npm run build && node server/index.js
