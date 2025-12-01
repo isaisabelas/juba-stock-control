@@ -42,10 +42,22 @@ app.get('/api', (req, res) => {
 // Serve React build (production)
 const buildPath = path.join(__dirname, '../build');
 const fs = require('fs');
+
+console.log(`📁 Procurando build em: ${buildPath}`);
+console.log(`✅ Build existe: ${fs.existsSync(buildPath)}`);
+
 if (fs.existsSync(buildPath)) {
+  console.log('📦 Servindo arquivos estáticos do React build...');
   app.use(express.static(buildPath));
+  
+  // Fallback para SPA
   app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
+  });
+} else {
+  console.log('⚠️ Pasta build não encontrada. Apenas API disponível.');
+  app.get('*', (req, res) => {
+    res.json({ error: 'Frontend build não encontrado. Execute: npm run build' });
   });
 }
 
