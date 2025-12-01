@@ -43,8 +43,8 @@
 ### Passo 3: Configurar Web Service (Backend)
 1. **Name:** `juba-estoque-api`
 2. **Environment:** `Node`
-3. **Build Command:** `cd server && npm install`
-4. **Start Command:** `cd server && npm start`
+3. **Build Command:** `npm install && npm run build`
+4. **Start Command:** `node server/index.js`
 5. **Plan:** Free
 6. **Add Environment Variable:**
    - **KEY:** `NODE_ENV` 

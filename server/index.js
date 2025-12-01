@@ -43,7 +43,17 @@ app.get('/api', (req, res) => {
 const buildPath = path.join(__dirname, '../build');
 const fs = require('fs');
 
+console.log(`📁 Diretório do servidor: ${__dirname}`);
 console.log(`📁 Procurando build em: ${buildPath}`);
+console.log(`📋 Conteúdo do diretório pai:`);
+try {
+  const parentDir = path.join(__dirname, '..');
+  const files = fs.readdirSync(parentDir);
+  console.log(files);
+} catch (e) {
+  console.log('Erro ao ler diretório');
+}
+
 console.log(`✅ Build existe: ${fs.existsSync(buildPath)}`);
 
 if (fs.existsSync(buildPath)) {
