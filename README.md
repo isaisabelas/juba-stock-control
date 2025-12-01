@@ -15,40 +15,6 @@ App web para controle de estoque de café/restaurante com frontend React, backen
 - Node.js 14+
 - npm ou yarn
 
-## 🔧 Instalação
-
-1. Clone o repositório
-2. Instale as dependências:
-
-\`\`\`bash
-npm install
-cd server && npm install
-\`\`\`
-
-3. Crie o arquivo `.env` na raiz e em `server/`:
-
-\`\`\`bash
-# Raiz - .env
-REACT_APP_API_URL=http://localhost:5000
-
-# server/.env
-PORT=5000
-JWT_SECRET=sua-chave-secreta-aqui
-\`\`\`
-
-## 🏃 Executar
-
-### Desenvolvimento (frontend + backend):
-\`\`\`bash
-npm run dev
-\`\`\`
-
-### Produção:
-\`\`\`bash
-npm run build
-npm start
-\`\`\`
-
 ## 📁 Estrutura do Projeto
 
 \`\`\`
@@ -65,7 +31,6 @@ juba-project/
 │   ├── db/              # Database
 │   └── index.js
 └── package.json
-\`\`\`
 
 ## 🔗 API Endpoints
 
@@ -80,5 +45,4 @@ juba-project/
 - `DELETE /api/items/:id` - Deletar item
 
 ## 📝 Licença
-
 MIT
