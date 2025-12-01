@@ -10,8 +10,19 @@ require('./db/database');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  process.env.FRONTEND_URL, // Para produção
+].filter(Boolean);
+
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? allowedOrigins 
+    : '*',
+  credentials: true
+}));
 app.use(express.json());
 
 // API Routes
