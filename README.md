@@ -9,26 +9,21 @@ O projeto foi desenvolvido para o Projeto de Extenção da Faculdade Descomplica
 ## 📸 Screenshots
 
 ### Tela de Login
-![Login Screen]
 <img width="1909" height="860" alt="Captura de tela 2025-12-02 215346" src="https://github.com/user-attachments/assets/5bce899c-202b-459b-9f44-8e8c4d33ab10" />
 
 ### Tela de Registro
-![Register Screen](./screenshots/02-register.png)
+<img width="1909" height="853" alt="Captura de tela 2025-12-02 215401" src="https://github.com/user-attachments/assets/85242b3e-3c93-4ba0-be01-cc91e52e191d" />
 
 ### Página Principal - Dashboard
-![Dashboard](./screenshots/03-dashboard.png)
+<img width="1919" height="859" alt="Captura de tela 2025-12-02 215434" src="https://github.com/user-attachments/assets/c8d3aa34-7c84-4745-9fa3-6e2d970bfb76" />
+
 
 ### Criando Novo Produto
-![New Product Form](./screenshots/04-new-product.png)
+<img width="742" height="782" alt="Captura de tela 2025-12-02 215521" src="https://github.com/user-attachments/assets/89166712-0bab-4553-b81e-7017d9ad64f5" />
+
 
 ### Lista de Produtos
-![Product List](./screenshots/05-product-list.png)
-
-### Alertas de Estoque Baixo
-![Low Stock Alerts](./screenshots/06-low-stock-alerts.png)
-
-### Filtro de Produtos com Estoque Baixo
-![Filter Low Stock](./screenshots/07-filter-low-stock.png)
+<img width="1910" height="864" alt="Captura de tela 2025-12-02 220955" src="https://github.com/user-attachments/assets/c97a9dcf-5e1f-47ab-9add-32e7fdebe328" />
 
 ---
 
