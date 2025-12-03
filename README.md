@@ -280,4 +280,4 @@ npm install && cd server && npm install && cd ..
 
 ---
 
-**Desenvolvido para gestão de estoque eficiente** ❤️
+**Desenvolvido com carinho para uma empreendedora independente** ❤️
