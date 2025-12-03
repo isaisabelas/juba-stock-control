@@ -1,6 +1,6 @@
 # 🍰 Juba Estoque - Sistema de Controle de Estoque
 
-O Juba estoque é uma aplicação full-stack para gerenciamento de estoque de restaurante com alertas de produtos baixos. Ele foi baseado na necessidade da Julia, dona do Juba Café, que tem dificuldade em manter seu estoque organizado e saber o que está em falta. 
+O Juba Estoque é uma aplicação full-stack para gerenciamento de estoque de restaurante com alertas de produtos baixos. Ele foi baseado na necessidade da Julia, dona do Juba Café, que tem dificuldade em manter seu estoque organizado e saber o que está em falta. 
 
 A ideia é ter uma plataforma simples e intuitiva, que porporciona ao usuário uma navegação e organzização de fácil acesso. 
 
@@ -9,7 +9,8 @@ O projeto foi desenvolvido para o Projeto de Extenção da Faculdade Descomplica
 ## 📸 Screenshots
 
 ### Tela de Login
-![Login Screen](./screenshots/01-login.png)
+![Login Screen]
+<img width="1909" height="860" alt="Captura de tela 2025-12-02 215346" src="https://github.com/user-attachments/assets/5bce899c-202b-459b-9f44-8e8c4d33ab10" />
 
 ### Tela de Registro
 ![Register Screen](./screenshots/02-register.png)
