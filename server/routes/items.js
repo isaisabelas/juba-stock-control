@@ -22,18 +22,37 @@ router.post('/', authMiddleware, async (req, res) => {
   try {
     const { name, quantity, unit, category, supplier, notes, min_quantity } = req.body;
     
-    if (!name || quantity === undefined) {
+    console.log('📝 Criando novo item:', { name, quantity, unit, category, supplier, min_quantity, userId: req.userId });
+    
+    if (!name || quantity === undefined || quantity === null || quantity === '') {
       return res.status(400).json({ error: 'Nome e quantidade são obrigatórios' });
+    }
+
+    // Converter quantity e min_quantity para números
+    const quantityNum = parseFloat(quantity);
+    const minQuantityNum = min_quantity ? parseFloat(min_quantity) : 10;
+
+    if (isNaN(quantityNum)) {
+      return res.status(400).json({ error: 'Quantidade deve ser um número válido' });
     }
 
     const result = await dbRun(
       'INSERT INTO items (user_id, name, quantity, unit, category, supplier, notes, min_quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [req.userId, name, quantity, unit, category, supplier, notes || null, min_quantity || 10]
+      [req.userId, name, quantityNum, unit || null, category || null, supplier || null, notes || null, minQuantityNum]
     );
 
-    res.json({ id: result.lastID, ...req.body });
+    console.log('✅ Item criado com sucesso, ID:', result.lastID);
+    
+    // Buscar o item completo que foi criado
+    const newItem = await dbGet(
+      'SELECT * FROM items WHERE id = ?',
+      [result.lastID]
+    );
+    
+    res.json(newItem);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('❌ Erro ao criar item:', err);
+    res.status(500).json({ error: err.message, details: err.stack });
   }
 });
 

@@ -38,8 +38,10 @@ export default function Inventory() {
 
   const handleAddItem = async (formData) => {
     try {
+      console.log('📤 Enviando dados:', formData);
       if (editingItem) {
-        await api.put(`/items/${editingItem.id}`, formData);
+        const response = await api.put(`/items/${editingItem.id}`, formData);
+        console.log('✅ Item atualizado:', response.data);
         setItems(
           items.map((item) =>
             item.id === editingItem.id ? { ...item, ...formData } : item
@@ -48,11 +50,13 @@ export default function Inventory() {
         setEditingItem(null);
       } else {
         const response = await api.post('/items', formData);
+        console.log('✅ Item criado:', response.data);
         setItems([response.data, ...items]);
       }
       setShowForm(false);
     } catch (err) {
-      console.error('Erro ao salvar item:', err);
+      console.error('❌ Erro ao salvar item:', err.response?.data || err.message);
+      alert(`Erro ao salvar: ${err.response?.data?.error || err.message}`);
     }
   };
 

@@ -1,6 +1,35 @@
 # 🍰 Juba Estoque - Sistema de Controle de Estoque
 
-Sistema full-stack para gerenciamento de estoque de restaurante com alertas de produtos baixos.
+O Juba estoque é uma aplicação full-stack para gerenciamento de estoque de restaurante com alertas de produtos baixos. Ele foi baseado na necessidade da Julia, dona do Juba Café, que tem dificuldade em manter seu estoque organizado e saber o que está em falta. 
+
+A ideia é ter uma plataforma simples e intuitiva, que porporciona ao usuário uma navegação e organzização de fácil acesso. 
+
+O projeto foi desenvolvido para o Projeto de Extenção da Faculdade Descomplica, no curso de Análise e Desenvolvimento de Sistemas. 
+
+## 📸 Screenshots
+
+### Tela de Login
+![Login Screen](./screenshots/01-login.png)
+
+### Tela de Registro
+![Register Screen](./screenshots/02-register.png)
+
+### Página Principal - Dashboard
+![Dashboard](./screenshots/03-dashboard.png)
+
+### Criando Novo Produto
+![New Product Form](./screenshots/04-new-product.png)
+
+### Lista de Produtos
+![Product List](./screenshots/05-product-list.png)
+
+### Alertas de Estoque Baixo
+![Low Stock Alerts](./screenshots/06-low-stock-alerts.png)
+
+### Filtro de Produtos com Estoque Baixo
+![Filter Low Stock](./screenshots/07-filter-low-stock.png)
+
+---
 
 ## 🚀 Quick Start
 
@@ -25,25 +54,39 @@ cd ..
 ### Executar Localmente
 
 #### Opção 1: Modo Desenvolvimento (Recomendado)
-Executa frontend com hot reload e backend com nodemon:
+Executa frontend com hot reload e backend com nodemon **em paralelo**:
 
 ```bash
 npm run dev
 ```
 
 Acessar:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
+- Frontend: http://localhost:3000 (React)
+- Backend API: http://localhost:5000 (Node.js)
 
 #### Opção 2: Modo Produção
-Build React + Start Backend:
+Compila React e inicia servidor com build estático:
 
 ```bash
-npm run build
 npm start
 ```
 
 Acessar: http://localhost:5000
+
+#### Opção 3: Iniciar Separadamente
+Se precisar de mais controle, inicie em terminais diferentes:
+
+**Terminal 1 - Frontend:**
+```bash
+npm run dev:frontend
+```
+
+**Terminal 2 - Backend:**
+```bash
+cd server && npm run dev
+# ou simplesmente:
+node index.js
+```
 
 ## 📁 Estrutura do Projeto
 
@@ -104,13 +147,16 @@ Cada produto tem uma **quantidade mínima** configurável:
 
 ## 📊 Features
 
-- ✅ Autenticação JWT com email/senha
-- ✅ CRUD completo de produtos
-- ✅ Sistema de alertas de estoque baixo
-- ✅ Busca em tempo real
-- ✅ Interface responsiva
-- ✅ Dados persistem em SQLite
-- ✅ Multi-usuário (dados isolados por usuário)
+- ✅ **Autenticação JWT** com email/senha (mínimo 6 caracteres)
+- ✅ **CRUD completo** de produtos (Create, Read, Update, Delete)
+- ✅ **Sistema de Alertas** - Produtos com estoque baixo (🚨)
+- ✅ **Filtro inteligente** - Visualize apenas produtos críticos
+- ✅ **Busca em tempo real** - Filtre por nome ou categoria
+- ✅ **Interface responsiva** - Mobile-friendly
+- ✅ **Dados persistem** - SQLite local
+- ✅ **Multi-usuário** - Dados isolados por usuário
+- ✅ **Histórico de criação** - Data de adição em cada produto
+- ✅ **Campos customizáveis** - Nome, quantidade, unidade, categoria, fornecedor, notas
 
 ## 🛠️ Scripts Disponíveis
 
@@ -133,7 +179,7 @@ REACT_APP_API_URL=http://localhost:5000
 ```env
 PORT=5000
 NODE_ENV=development
-JWT_SECRET=seu_secret_aqui
+JWT_SECRET=secret_aqui
 ```
 
 ## 🔗 API Endpoints
@@ -148,32 +194,59 @@ JWT_SECRET=seu_secret_aqui
 - `PUT /api/items/:id` - Atualizar item
 - `DELETE /api/items/:id` - Deletar item
 
-## 🧪 Teste a Aplicação
-
-1. Abra 2 terminais
-2. Terminal 1: `npm run dev:frontend`
-3. Terminal 2: `cd server && npm run dev`
-4. Acesse http://localhost:3000
-5. Registre e teste!
 
 ## 💾 Banco de Dados
 
 SQLite automático em `server/db/juba.db`
 
 **Tabelas:**
-- `users`: email, password (bcrypt), name
-- `items`: name, quantity, min_quantity, category, supplier, notes
+
+### Users
+```sql
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL (bcryptjs hash),
+  name TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+### Items
+```sql
+CREATE TABLE items (
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER NOT NULL (FK → users.id),
+  name TEXT NOT NULL,
+  quantity REAL NOT NULL,
+  min_quantity REAL DEFAULT 10,
+  unit TEXT (kg, g, L, ml, unidade),
+  category TEXT,
+  supplier TEXT,
+  notes TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+**Isolamento por Usuário:** Cada usuário vê apenas seus próprios itens (WHERE user_id = ?)
+
+**Alertas:** Produtos com `quantity ≤ min_quantity` aparecem com 🚨 e filtro especial
 
 ## 🐛 Troubleshooting
+Baseado em erros que encontrei durante o desenvolvimento. 
 
 ### "Port already in use"
 ```bash
-# Use porta diferente
+# Verifique processos Node em execução
+# Se necessário, use porta diferente
 PORT=3001 npm run dev:frontend
+PORT=5001 npm run dev:server
 ```
 
 ### "Cannot find module"
 ```bash
+# Reinstale dependências
 rm -rf node_modules package-lock.json
 npm install && cd server && npm install && cd ..
 ```
@@ -181,6 +254,20 @@ npm install && cd server && npm install && cd ..
 ### "JWT error"
 - Limpe localStorage: DevTools → Application → Clear
 - Faça login novamente
+
+### "Invalid Date" no card do item
+- Reinicie o servidor para criar novo banco de dados com schema correto
+- Certifique-se de que o banco de dados foi deletado antes de iniciar
+
+### "Network Error" ao criar item
+- Verifique se ambos (frontend e backend) estão rodando
+- Frontend em http://localhost:3000
+- Backend em http://localhost:5000
+
+## 📚 Documentação Adicional
+
+- **DATABASE_FLOWCHART.md** - Diagrama completo da estrutura do banco de dados
+- **QUICKSTART.md** - Guia rápido de instalação e execução
 
 ## 📦 Tech Stack
 

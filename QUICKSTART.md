@@ -1,35 +1,48 @@
-# ⚡ Setup Rápido - Juba Estoque
+# Setup Rápido - Juba Estoque
 
 ## 1️⃣ Instalar Dependências
 
 ```bash
-# Frontend (raiz)
-npm install
-
-# Backend
-cd server
-npm install
-cd ..
+# Frontend + Backend dependencies
+npm install && cd server && npm install && cd ..
 ```
 
 ## 2️⃣ Executar Localmente
 
-### Modo Desenvolvimento (Recomendado)
+### 🔧 Modo Desenvolvimento (Recomendado)
+Inicia **Frontend (React)** e **Backend (Node)** simultaneamente:
+
 ```bash
 npm run dev
 ```
 
-Abre automaticamente:
-- Frontend: http://localhost:3000
-- Backend: http://localhost:5000
+✅ Abrirá automaticamente:
+- **Frontend**: http://localhost:3000 (React com hot-reload)
+- **Backend API**: http://localhost:5000 (Express + SQLite)
 
-### Modo Produção
+### 🚀 Modo Produção
+Compila React e serve tudo via backend:
+
 ```bash
-npm run build
+# Começa do início: compila React e inicia servidor
 npm start
 ```
 
 Acessa: http://localhost:5000
+
+### 🔄 Iniciar Separadamente (Se Necessário)
+
+**Terminal 1 - Frontend:**
+```bash
+npm run dev:frontend
+```
+
+**Terminal 2 - Backend:**
+```bash
+cd server && npm run dev
+# ou simplesmente:
+node index.js
+```
 
 ## 3️⃣ Testar a Aplicação
 

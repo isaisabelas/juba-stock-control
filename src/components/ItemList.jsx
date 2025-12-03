@@ -2,6 +2,17 @@ import React from 'react';
 import '../styles/ItemList.css';
 
 export default function ItemList({ items, onEdit, onDelete, loading }) {
+  // Função para formatar data de forma segura
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Data desconhecida';
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Data inválida';
+      return date.toLocaleDateString('pt-BR');
+    } catch (err) {
+      return 'Data inválida';
+    }
+  };
   if (loading) {
     return <div className="loading">⏳ Carregando itens...</div>;
   }
@@ -60,7 +71,7 @@ export default function ItemList({ items, onEdit, onDelete, loading }) {
 
               <div className="detail-row date">
                 <span className="label">Adicionado:</span>
-                <span>{new Date(item.created_at).toLocaleDateString('pt-BR')}</span>
+                <span>{formatDate(item.created_at)}</span>
               </div>
             </div>
 
